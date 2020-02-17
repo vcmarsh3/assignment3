@@ -22,7 +22,7 @@ Follow these steps:
 
   6. Select "Maven -> Existing Maven Projects" and press Next
 
-  7. Click Browse and find the assignment3 folder, select the assignment1 folder
+  7. Click Browse and find the assignment3 folder, select the assignment3 folder
 
   8. Ensure the pom.xml Project is selected and click Finish
 
