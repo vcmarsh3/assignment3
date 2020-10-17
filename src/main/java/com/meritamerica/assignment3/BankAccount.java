@@ -43,12 +43,47 @@ public class BankAccount {
 		return accountOpenedOn;
 	}
 	
-	public static BankAccount readFromString(String accountData)throws ParseException, NumberFormatException {
+	public boolean withdraw(double amount) {
+        if(amount <= this.balance && amount >= 0) {
+        	this.balance =- amount;
+        	return true;
+        }
+        else {
+    		return false;       	
+        }
+    }
+	
+    public boolean deposit(double amount) {
+    	if(amount >= 0) {
+        	this.balance =+ amount;
+        	return true;
+        }
+        else {
+    		return false;       	
+        }
+    }
+	
+	public static BankAccount readFromString(String accountData) throws ParseException, NumberFormatException {
 	    try {
-	    	String [] holding = accountData.split(",");
+	    	String[] holding = accountData.split(",");
 	    	SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+	    	
+	    	//[0] is accountNumber, [1] is balance, [2] is interestRate, date is [3] which is SimpleDate
+	    	//might throw exception
+	    	long accountNumber = Long.parseLong(holding[0]);
+	    	double balance = Double.parseDouble(holding[1]);
+	    	double interestRate = Double.parseDouble(holding[2]);
+	    	Date accountOpenedOn = date.parse(holding[3]);
+	    	
+	    	//creates the Bank account
+	    	return new BankAccount(accountNumber, balance, interestRate,accountOpenedOn);
+	    	}
+	    catch (Exception e){
+	    	System.out.println("couldn't read bank account");
+	    	return null;
 	    }
 	    
+	}
 	public String writeToString() {
 		StringBuilder accountData = new StringBuilder();
 		accountData.append(accountNumber).append(",");

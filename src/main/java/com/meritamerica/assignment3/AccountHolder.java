@@ -3,7 +3,7 @@
  *
  */
 package com.meritamerica.assignment3;
-public class AccountHolder {
+public class AccountHolder implements Comparable<AccountHolder>{
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -24,7 +24,7 @@ public class AccountHolder {
 			System.out.println("Cannot open a new Checking Account because aggregate balance of accounts is too high.");
 			return null;
 		}
-		CheckingAccount newA = new CheckingAccount(openBalance, CheckingAccount.INTEREST_RATE);
+		CheckingAccount newA = new CheckingAccount(openBalance);
 		CheckingAccount[] newCheckingArray = new CheckingAccount[checkingArray.length+1];
 			for (int i = 0; i < newCheckingArray.length - 1; i++) {
 				newCheckingArray[i] = checkingArray[i];
@@ -35,7 +35,6 @@ public class AccountHolder {
 	}
 	
 	public boolean addCheckingAccount(CheckingAccount checkingAccount) {
-		
 		if(checkingAccount.getBalance() + getCheckingBalance() + getSavingsBalance() >= 250000) {
 			System.out.println("Cannot open a new Checking Account because aggregate balance of accounts is too high.");
 			return false;
@@ -46,6 +45,7 @@ public class AccountHolder {
 			}
 		checkingArray = newCheckingArray;
 		checkingArray[checkingArray.length-1] = checkingAccount;
+		return true;
 		}
 	
 
@@ -63,7 +63,7 @@ public class AccountHolder {
 			System.out.println("Cannot open a new Savings Account because aggregate balance of accounts is too high.");
 			return null;
 		}	
-		SavingsAccount newA = new SavingsAccount(openBalance, SavingsAccount.INTEREST_RATE);
+		SavingsAccount newA = new SavingsAccount(openBalance);
 		SavingsAccount[] newSavingsArray = new SavingsAccount[savingsArray.length+1];
 		for (int i = 0; i < newSavingsArray.length-1; i++) {
 			newSavingsArray[i] = savingsArray[i];
@@ -194,15 +194,32 @@ public class AccountHolder {
     	return accountHolderData.toString();
     }
 
-	public static AccountHolder readFromString(String accountHolderData) {
-	    String[] holding = accountHolderData.split(",");
+	public static AccountHolder readFromString(String accountHolderData) throws Exception {
+	   try {
+		String[] holding = accountHolderData.split(",");
 	    String firstName = holding[0];
 	    String middleName = holding[1];
 	    String lastName = holding[2];
 	    String ssn = holding[3];	
 	    return new AccountHolder(firstName, middleName, lastName, ssn);
+	   }
+	   catch(Exception e){
+		   throw new Exception();
+	   }
 	}
 	public String toString() {
 		return  "Combined Balance for Account Holder" + this.getCombinedBalance();	
 	}
+
+	@Override
+	public int compareTo(AccountHolder otherAccountHolder) {
+		if(this.getCombinedBalance() > otherAccountHolder.getCombinedBalance()) {
+			return 1;
+		}else if(this.getCombinedBalance() < otherAccountHolder.getCombinedBalance()) {
+			return -1;
+		}else {
+			return 0;
+		}
+	}
+
 }
