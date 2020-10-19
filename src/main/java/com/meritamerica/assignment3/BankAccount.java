@@ -62,9 +62,12 @@ public class BankAccount {
     		return false;       	
         }
     }
+    double futureValue(int term) {
+		double futureValue = MeritBank.futureValue(this.balance, this.interestRate, term);
+		return futureValue;
+	}
 	
 	public static BankAccount readFromString(String accountData) throws ParseException, NumberFormatException {
-	    try {
 	    	String[] holding = accountData.split(",");
 	    	SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
 	    	
@@ -77,12 +80,6 @@ public class BankAccount {
 	    	
 	    	//creates the Bank account
 	    	return new BankAccount(accountNumber, balance, interestRate,accountOpenedOn);
-	    	}
-	    catch (Exception e){
-	    	System.out.println("couldn't read bank account");
-	    	return null;
-	    }
-	    
 	}
 	public String writeToString() {
 		StringBuilder accountData = new StringBuilder();

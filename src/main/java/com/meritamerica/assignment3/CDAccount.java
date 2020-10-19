@@ -37,9 +37,11 @@ public class CDAccount extends BankAccount {
     public boolean deposit(double amount) {
     	return false;
     }
-    
+    double futureValue() {
+		double futureValue = super.futureValue(this.offering.getTerm());
+		return futureValue;
+	}
 	public static CDAccount readFromString(String accountData) throws ParseException, NumberFormatException {
-		try {
 	    	String[] holding = accountData.split(",");
 	    	SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
 	    	
@@ -53,10 +55,6 @@ public class CDAccount extends BankAccount {
 	    	
 	    	//creates the Bank account
 	    	return new CDAccount(accountNumber, balance, interestRate, accountOpenedOn, term);
-	    }
-	    finally {
-	    	return null;
-	    }
 	}
 	@Override
 	public String writeToString() {

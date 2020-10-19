@@ -42,6 +42,7 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class SolutionTest {
@@ -301,7 +302,6 @@ public class SolutionTest {
     	Date date = dateFormatter.parse("01/03/2020");
     	
         CDAccount cdAccount = CDAccount.readFromString("84,20000,0.03,01/03/2020,5");
-        
         assertEquals(84, cdAccount.getAccountNumber());
         assertEquals(20000.0, cdAccount.getBalance(), 0);
         assertEquals(0.03, cdAccount.getInterestRate(), 0);
@@ -328,9 +328,9 @@ public class SolutionTest {
     	assertEquals(true, result);
     	assertEquals(11, MeritBank.getNextAccountNumber());
     	assertEquals(3, MeritBank.getCDOfferings().length);
-    	
+
     	AccountHolder[] sortedAccountHolders = MeritBank.sortAccountHolders();    	
-    	
+
     	assertEquals(36400, sortedAccountHolders[0].getCombinedBalance(), 0);
     	assertEquals(161000, sortedAccountHolders[1].getCombinedBalance(), 0);
     	

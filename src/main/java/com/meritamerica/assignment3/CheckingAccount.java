@@ -12,12 +12,11 @@ public class CheckingAccount extends BankAccount {
 	}
 	
 	public CheckingAccount (long accountNumber, double openBalance, double interestRate, Date accountOpenedOn) {
-		super(accountNumber, openBalance, INTEREST_RATE, accountOpenedOn);
+		super(accountNumber, openBalance, interestRate, accountOpenedOn);
 	}
 
 
 	public static CheckingAccount readFromString(String accountData) throws ParseException, NumberFormatException {
-		try {
 	    	String[] holding = accountData.split(",");
 	    	SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
 	    	
@@ -30,13 +29,6 @@ public class CheckingAccount extends BankAccount {
 	    	
 	    	//creates the Bank account
 	    	return new CheckingAccount(accountNumber, balance, interestRate,accountOpenedOn);
-	    	}
-	    catch (Exception e){
-	    	System.out.println("couldn't read checking account");
-	    	e.printStackTrace();
-	    	return null;
-	    }    	
-
     }   
 	
 }

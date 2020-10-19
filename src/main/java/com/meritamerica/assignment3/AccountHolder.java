@@ -208,7 +208,7 @@ public class AccountHolder implements Comparable<AccountHolder>{
 	   }
 	}
 	public String toString() {
-		return  "Combined Balance for Account Holder" + this.getCombinedBalance();	
+		return  "Combined Balance for Account Holder " + this.getCombinedBalance();	
 	}
 
 	@Override

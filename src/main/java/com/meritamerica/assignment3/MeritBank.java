@@ -3,7 +3,9 @@ package com.meritamerica.assignment3;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MeritBank {
@@ -20,6 +22,11 @@ public class MeritBank {
 	}
 	
 	static AccountHolder[] getAccountHolders(){
+		return accountHolders;
+	}
+	
+	static AccountHolder[] sortAccountHolders() {
+		Arrays.sort(accountHolders);
 		return accountHolders;
 	}
 	
@@ -52,10 +59,10 @@ public class MeritBank {
 			return null;
 		} else {
 			for(CDOffering offering: CDOfferingsArray) {
-				if(futureValue(depositAmount, offering.getInterestRate(), offering.getTerm()) > bestValue) {
+				if(MeritBank.futureValue(depositAmount, offering.getInterestRate(), offering.getTerm()) > bestValue) {
 					secondBest = bestOfferingAvailable;
 					bestOfferingAvailable = offering;
-					bestValue = futureValue(depositAmount, offering.getInterestRate(), offering.getTerm());
+					bestValue = MeritBank.futureValue(depositAmount, offering.getInterestRate(), offering.getTerm());
 				}
 			}
 		}
@@ -73,6 +80,9 @@ public class MeritBank {
 	static long getNextAccountNumber() {
 		return accountNumber;
 	}
+	static void setNextAccountNumber(long nextAccountNumber) {
+		MeritBank.accountNumber = nextAccountNumber;
+	}
 	
 	static double totalBalances() {
 		double totalBalance = 0.0;
@@ -88,6 +98,11 @@ public class MeritBank {
 	}
 	
 	static boolean readFromFile(String fileName){
+		//resets all the static variables
+		MeritBank.accountData = "";
+		MeritBank.accountNumber = 0;
+		MeritBank.accountHolders = new AccountHolder[0];
+		MeritBank.CDOfferingsArray = new CDOffering[0];
 		
 		try (BufferedReader rd = new BufferedReader(new FileReader(fileName))){
 			//reads first line sets account number
@@ -140,6 +155,7 @@ public class MeritBank {
 		}
 		catch(IOException ex){
 			System.out.println("did not read because i/o");
+			ex.printStackTrace();
 			return false;
 		}
 		catch(Exception e) {
@@ -150,4 +166,11 @@ public class MeritBank {
 		
 		return true;
 	}
+	
+	static boolean writeToFile(String fileName) {
+		
+		
+		return true;
+	}
+	
 }
